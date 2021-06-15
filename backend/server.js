@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 5000;
 const users = [];
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   axios
@@ -18,14 +19,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  console.log(req.body);
+  console.log(req);
   axios
     .post("https://jsonplaceholder.typicode.com/posts", req.body, {
       headers: { "Content-Type": "application/json" },
     })
     .then((response) => {
-      console.log(response);
-      res.json("response");
+      res.json(response.data);
+      //   res.json("Post created");
     })
     .catch((err) => res.json(err.message));
 });
