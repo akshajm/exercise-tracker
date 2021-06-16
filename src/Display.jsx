@@ -7,8 +7,11 @@ const Display = () => {
     axios
       .get("http://localhost:5000/")
       .then((all_posts) => {
-        console.log(all_posts);
-        setPosts(all_posts.data);
+        let newpost = all_posts.data.reduce((acc, cur) => {
+          return acc + cur.id;
+        }, 0);
+        console.log(newpost);
+        setPosts([...all_posts.data, newpost]);
       })
       .catch((err) => console.log(err.msg));
   }, []);
